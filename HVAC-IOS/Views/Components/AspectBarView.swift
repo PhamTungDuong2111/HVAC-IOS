@@ -125,3 +125,4 @@ struct AspectBarView: View {
         }
     }
 }
+

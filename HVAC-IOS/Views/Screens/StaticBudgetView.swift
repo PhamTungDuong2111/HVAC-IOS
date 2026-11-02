@@ -330,3 +330,4 @@ struct StaticBudgetView: View {
         return f
     }
 }
+

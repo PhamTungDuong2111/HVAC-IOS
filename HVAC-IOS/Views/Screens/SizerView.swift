@@ -40,13 +40,24 @@ struct SizerView: View {
         let staticDrop = HvacFormulas.calculateStaticDrop(frictionRatePer100Ft: actualFriction, totalEquivLengthFt: s.ductLengthFt)
 
         let maxDim: Double
+        let dim1: Double
+        let dim2: Double
         switch s.shape {
-        case "round": maxDim = s.roundDiameter
-        case "flatOval": maxDim = max(s.flatOvalMajor, s.flatOvalMinor)
-        default: maxDim = max(s.rectWidth, s.rectHeight)
+        case "round":
+            maxDim = s.roundDiameter
+            dim1 = s.roundDiameter
+            dim2 = s.roundDiameter
+        case "flatOval":
+            maxDim = max(s.flatOvalMajor, s.flatOvalMinor)
+            dim1 = s.flatOvalMajor
+            dim2 = s.flatOvalMinor
+        default:
+            maxDim = max(s.rectWidth, s.rectHeight)
+            dim1 = s.rectWidth
+            dim2 = s.rectHeight
         }
         let gauge = HvacFormulas.getRecommendedGauge(maxDimensionIn: maxDim)
-        let metalArea = HvacFormulas.calculateSheetMetalArea(shape: s.shape, dim1In: s.rectWidth, dim2In: s.rectHeight, lengthFt: s.ductLengthFt)
+        let metalArea = HvacFormulas.calculateSheetMetalArea(shape: s.shape, dim1In: dim1, dim2In: dim2, lengthFt: s.ductLengthFt)
 
         ScrollView {
             VStack(spacing: 16) {
@@ -144,7 +155,7 @@ struct SizerView: View {
                             .background(AppTheme.bgCardElevated)
                             .clipShape(RoundedRectangle(cornerRadius: 6))
 
-                            Text(isSI ? "CFM" : "CFM")
+                            Text(isSI ? "L/s" : "CFM")
                                 .font(.system(size: 12, weight: .bold))
                                 .foregroundColor(AppTheme.textMuted)
                         }
@@ -544,3 +555,4 @@ struct SizerView: View {
         return f
     }
 }
+

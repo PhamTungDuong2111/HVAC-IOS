@@ -190,3 +190,4 @@ struct VelocityView: View {
             .clipShape(Capsule())
     }
 }
+

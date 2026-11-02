@@ -76,3 +76,4 @@ struct AppState: Codable, Equatable {
     var staticBudget: StaticBudgetState = StaticBudgetState()
     var project: ProjectState = ProjectState()
 }
+

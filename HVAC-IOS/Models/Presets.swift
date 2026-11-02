@@ -58,3 +58,4 @@ struct ComponentPressureDrop: Identifiable, Equatable {
     let defaultDropInWg: Double
     let range: String
 }
+

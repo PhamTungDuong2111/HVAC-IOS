@@ -18,3 +18,4 @@ struct DuctRun: Identifiable, Codable, Equatable {
     var gauge: String = ""
     var metalAreaSqFt: Double = 0.0
 }
+

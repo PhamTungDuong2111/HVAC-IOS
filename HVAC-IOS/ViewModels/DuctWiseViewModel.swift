@@ -267,13 +267,24 @@ final class DuctWiseViewModel: ObservableObject {
         let friction = HvacFormulas.calculateFrictionRate(cfm: s.cfm, diameterIn: de, densityMultiplier: densityCorr.lossMultiplier)
         let staticDrop = HvacFormulas.calculateStaticDrop(frictionRatePer100Ft: friction, totalEquivLengthFt: s.ductLengthFt)
         let maxDim: Double
+        let dim1: Double
+        let dim2: Double
         switch s.shape {
-        case "round": maxDim = s.roundDiameter
-        case "flatOval": maxDim = max(s.flatOvalMajor, s.flatOvalMinor)
-        default: maxDim = max(s.rectWidth, s.rectHeight)
+        case "round":
+            maxDim = s.roundDiameter
+            dim1 = s.roundDiameter
+            dim2 = s.roundDiameter
+        case "flatOval":
+            maxDim = max(s.flatOvalMajor, s.flatOvalMinor)
+            dim1 = s.flatOvalMajor
+            dim2 = s.flatOvalMinor
+        default:
+            maxDim = max(s.rectWidth, s.rectHeight)
+            dim1 = s.rectWidth
+            dim2 = s.rectHeight
         }
         let gauge = HvacFormulas.getRecommendedGauge(maxDimensionIn: maxDim)
-        let metalArea = HvacFormulas.calculateSheetMetalArea(shape: s.shape, dim1In: s.rectWidth, dim2In: s.rectHeight, lengthFt: s.ductLengthFt).areaSqFt
+        let metalArea = HvacFormulas.calculateSheetMetalArea(shape: s.shape, dim1In: dim1, dim2In: dim2, lengthFt: s.ductLengthFt).areaSqFt
 
         let newRun = DuctRun(
             id: UUID().uuidString,
@@ -465,3 +476,4 @@ final class DuctWiseViewModel: ObservableObject {
         state.project.runs = Self.defaultRuns
     }
 }
+

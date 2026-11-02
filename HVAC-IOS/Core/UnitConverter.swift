@@ -37,3 +37,4 @@ enum UnitConverter {
     static func sqFtToSqM(_ sqFt: Double) -> Double { sqFt * 0.092903 }
     static func sqMToSqFt(_ sqM: Double) -> Double { sqM / 0.092903 }
 }
+

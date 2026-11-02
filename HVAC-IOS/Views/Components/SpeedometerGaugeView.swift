@@ -123,3 +123,4 @@ struct SpeedometerGaugeView: View {
         }
     }
 }
+

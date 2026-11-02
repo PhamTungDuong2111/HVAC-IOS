@@ -106,6 +106,18 @@ struct JoistBayCanvasView: View {
                                 ))
                             }
                             .stroke(AppTheme.wrapInsulation, lineWidth: 1.5)
+                        } else if ductShape == "flatOval" {
+                            let wrapRect = CGRect(
+                                x: centerX - CGFloat(envW) / 2.0,
+                                y: centerY - CGFloat(envH) / 2.0,
+                                width: CGFloat(envW),
+                                height: CGFloat(envH)
+                            )
+                            let r = min(CGFloat(envW), CGFloat(envH)) / 2.0
+                            Path { p in p.addRoundedRect(in: wrapRect, cornerSize: CGSize(width: r, height: r)) }
+                                .fill(AppTheme.wrapInsulation.opacity(0.25))
+                            Path { p in p.addRoundedRect(in: wrapRect, cornerSize: CGSize(width: r, height: r)) }
+                                .stroke(AppTheme.wrapInsulation, lineWidth: 1.5)
                         } else {
                             let wrapRect = CGRect(
                                 x: centerX - CGFloat(envW) / 2.0,
@@ -131,6 +143,18 @@ struct JoistBayCanvasView: View {
                         Path { p in p.addEllipse(in: roundRect) }
                             .fill(AppTheme.ductMetal.opacity(0.35))
                         Path { p in p.addEllipse(in: roundRect) }
+                            .stroke(AppTheme.ductMetal, lineWidth: 2.0)
+                    } else if ductShape == "flatOval" {
+                        let ovalRect = CGRect(
+                            x: centerX - CGFloat(ductPixelW) / 2.0,
+                            y: centerY - CGFloat(ductPixelH) / 2.0,
+                            width: CGFloat(ductPixelW),
+                            height: CGFloat(ductPixelH)
+                        )
+                        let r = min(CGFloat(ductPixelW), CGFloat(ductPixelH)) / 2.0
+                        Path { p in p.addRoundedRect(in: ovalRect, cornerSize: CGSize(width: r, height: r)) }
+                            .fill(AppTheme.ductMetal.opacity(0.35))
+                        Path { p in p.addRoundedRect(in: ovalRect, cornerSize: CGSize(width: r, height: r)) }
                             .stroke(AppTheme.ductMetal, lineWidth: 2.0)
                     } else {
                         let rectRect = CGRect(
@@ -217,3 +241,4 @@ struct JoistBayCanvasView: View {
         }
     }
 }
+
